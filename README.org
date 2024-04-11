@@ -6,6 +6,8 @@ A simple breakout game to start building the engine for future games.
 
 First project in C++ and related to games and graphics, so there's bunch of silly mistakes.
 
+I started coding this game following the LearnOpenGL tutorial.
+
 * Note
 
 Using a lot of dependencies which in part is good because you can focus on the task at hand, however, not so good when
@@ -20,6 +22,7 @@ Current dependencies:
 - stb_image
 - glm
 - sdl2, sdl_mixer
+- freetype
 
 * One More Note
 
@@ -27,5 +30,5 @@ Updating and improving this game is not part of the plan; don't expect them.
 
 * Build
 
-You need cmake. The compilation command is at the `compile.sh` file.
+You need cmake. An example of a compilation command can be found at the `compile.sh` file.
 
