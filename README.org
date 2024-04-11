@@ -1,0 +1,31 @@
+* breakout
+
+A simple breakout game to start building the engine for future games.
+
+!!! Not happy with how it turned out; new projects will definitely improve !!!
+
+First project in C++ and related to games and graphics, so there's bunch of silly mistakes.
+
+* Note
+
+Using a lot of dependencies which in part is good because you can focus on the task at hand, however, not so good when
+you're trying to learn.
+
+The plan is to get rid of all dependencies and code everything from scratch.
+
+Current dependencies:
+
+- glfw
+- glad
+- stb_image
+- glm
+- sdl2, sdl_mixer
+
+* One More Note
+
+Updating and improving this game is not part of the plan; don't expect them.
+
+* Build
+
+You need cmake. The compilation command is at the `compile.sh` file.
+
