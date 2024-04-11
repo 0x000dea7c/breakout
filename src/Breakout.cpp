@@ -481,10 +481,10 @@ namespace Breakout {
     {
 
         static const std::array<std::filesystem::path, 4> levelsFilesPath{
-            "./res/levels/one_tst",
-            "./res/levels/two_tst",
-            "./res/levels/three_tst",
-            "./res/levels/four_tst",
+            "./res/levels/one",
+            "./res/levels/two",
+            "./res/levels/three",
+            "./res/levels/four",
         };
 
         for(std::size_t i{ 0 }; i < bricks.size(); ++i) {
@@ -806,7 +806,7 @@ namespace Breakout {
                        texture);
         }
 
-        if(powerUpShouldSpawn(75)) {
+        if(powerUpShouldSpawn(25)) {
             auto* texture = textureManager->getTexture("PowerUpConfuse");
             addPowerUp(PowerUpType::CONFUSE,
                        glm::vec3(1.f, .3f, .3f),
@@ -818,7 +818,7 @@ namespace Breakout {
                        texture);
         }
 
-        if(powerUpShouldSpawn(75)) {
+        if(powerUpShouldSpawn(25)) {
             auto* texture = textureManager->getTexture("PowerUpChaos");
             addPowerUp(PowerUpType::CHAOS,
                        glm::vec3(.9f, .25f, .25f),
@@ -831,7 +831,7 @@ namespace Breakout {
         }
     }
 
-    bool Game::reActivatePowerUp(const std::size_t index)
+    void Game::reActivatePowerUp(const std::size_t index)
     {
         // scan through power-ups to see if there's another one of the same type that's active.
         // in that case, reset its duration.
@@ -839,7 +839,7 @@ namespace Breakout {
 
         for(unsigned int i{ 0 }; i < powerUps.types.size(); ++i) {
             if(i != index && powerUps.types[i] == powerUps.types[index] &&
-               powerUps.isActive[i]) {
+               powerUps.isActive[i] && powerUps.durations[i] >= 0.f) {
                 // found a similar powerUp, reset duration and quit
                 powerUps.durations[i] = PowerUpDurationOnPlayer;
                 reActivated = true;
@@ -875,8 +875,6 @@ namespace Breakout {
 
         powerUps.isActive[index] = true;
         powerUps.isDestroyed[index] = true;
-
-        return reActivated;
     }
 
     void Game::removePowerUpEffects()

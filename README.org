@@ -6,7 +6,7 @@ A simple breakout game to start building the engine for future games.
 
 First project in C++ and related to games and graphics, so there's bunch of silly mistakes.
 
-I started coding this game following the LearnOpenGL tutorial.
+Started coding this game following the LearnOpenGL tutorial.
 
 * Note
 
@@ -31,4 +31,55 @@ Updating and improving this game is not part of the plan; don't expect them.
 * Build
 
 You need cmake. An example of a compilation command can be found at the `compile.sh` file.
+
+* Instructions
+
+- WASD: move.
+- ARROWS: move, too.
+- ESC: pop-up menu or come back to the game.
+- SPACE: release the ball from the paddle.
+- R: reset current level, in case the ball gets stucked because skill issue.
+
+There are 6 "power-ups":
+
+1. Speed: uncommon. Increases ball speed.
+2. Sticky: uncommon. Next time the ball impacts your paddle, it'll stick there until you release it.
+3. Pass Through: uncommon. The ball passes through non-solid bricks.
+4. Pad Size Increase: uncommon. Increases your paddle size.
+5. Confuse: common. Creates a visual effect where everything is inverted.
+6. Chaos: common. Creates a weird visual effect which makes it hard for you to play.
+
+* Screenshots
+
+This is how the game looks.
+
+Menu (thanks David):
+
+[[./screenshots/Menu.png]]
+
+Level 1:
+
+[[./screenshots/LevelOne.png]]
+
+Level 2:
+
+[[./screenshots/LevelTwo.png]]
+
+Level 3:
+
+[[./screenshots/LevelThree.png]]
+
+Level 4:
+
+[[./screenshots/LevelFour.png]]
+
+Win (thanks David):
+
+[[./screenshots/Win.png]]
+
+Lose (thanks David):
+
+[[./screenshots/Lose.png]]
+
+Gameplay Demo(TODO):
 

@@ -61,7 +61,7 @@ namespace Breakout {
         void updatePowerUps(const float deltaTime);
         void clearPowerUps();
         void spawnPowerUp(const glm::vec2& referencePosition);
-        bool reActivatePowerUp(const std::size_t index);
+        void reActivatePowerUp(const std::size_t index);
         void removePowerUpEffects();
         void addPowerUp(const PowerUpType type,
                         const glm::vec3& colour,
