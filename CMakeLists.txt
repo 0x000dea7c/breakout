@@ -43,6 +43,7 @@ add_subdirectory(src)
 find_package(SDL2_mixer REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(Freetype REQUIRED)
+find_package(glfw3 REQUIRED)
 
 find_program(MOLD_EXE NAMES mold)
 
