@@ -63,6 +63,20 @@ namespace Audio {
             std::cerr << "Couldn't load winGame.wav\n";
             exit(EXIT_FAILURE);
         }
+
+        if(!loadFromFile("./res/audio/loseGame.wav",
+                         AudioID_loseGame,
+                         Audio::AudioType::CHUNK)) {
+            std::cerr << "Couldn't load loseGame.wav\n";
+            exit(EXIT_FAILURE);
+        }
+
+        if(!loadFromFile("./res/audio/loseRound.wav",
+                         AudioID_loseRound,
+                         Audio::AudioType::CHUNK)) {
+            std::cerr << "Couldn't load loseRound.wav\n";
+            exit(EXIT_FAILURE);
+        }
     }
 
     AudioManager::~AudioManager()
@@ -120,5 +134,9 @@ namespace Audio {
         volume = std::max(volume - 13.3f, 0.f);
         Mix_MasterVolume(static_cast<int>(volume));
         Mix_VolumeMusic(static_cast<int>(volume));
+    }
+    void AudioManager::stopMusic(const std::string& id)
+    {
+        Mix_FadeOutMusic(1000);
     }
 };

@@ -19,6 +19,8 @@ namespace Audio {
     static const std::string AudioID_bhitNonSolidBrick{ "ballHitNonSolidBrick" };
     static const std::string AudioID_roundWin{ "roundWin" };
     static const std::string AudioID_winGame{ "winGame" };
+    static const std::string AudioID_loseGame{ "loseGame" };
+    static const std::string AudioID_loseRound{ "loseRound" };
 
     enum class AudioType {
         MUSIC,
@@ -38,6 +40,7 @@ namespace Audio {
         void playChunk(const std::string& id);
         void increaseVolume();
         void decreaseVolume();
+        void stopMusic(const std::string& id);
 
         inline float getNormalizedVolume() const
         {

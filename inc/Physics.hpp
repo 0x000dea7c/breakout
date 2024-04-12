@@ -5,7 +5,6 @@
 #include <glm/glm.hpp>
 
 namespace Physics {
-    static constexpr int numSteps{ 4 }; // to do swept intersection
 
     // used to get out of objects once you collide with them
     struct CollisionData {
@@ -62,14 +61,19 @@ namespace Physics {
         return collision;
     }
 
-    // TODO this is most likely incorrect, idk
+    // TODO this is most likely incorrect, don't use this as a reference for your games
     bool checkSweptCircleAABBCollision(const glm::vec2& circleCenter,
                                        const float circleRadius,
                                        const glm::vec2& circleVelocity,
                                        const glm::vec2& aabbSize,
                                        const glm::vec2& aabbPosition,
-                                       CollisionData& out)
+                                       CollisionData& out,
+                                       const float deltaTime)
     {
+        if(glm::length(circleVelocity) == 0) {
+            return false;
+        }
+
         // in this frame it collided already, so return true
         if(circleAABBCollided(circleCenter,
                               circleRadius,
@@ -79,24 +83,20 @@ namespace Physics {
             return true;
         }
 
-        // otherwise, loop three times and see
-        const glm::vec2 circleInitialPos{ circleCenter };
-        const glm::vec2 circleEndPos{ circleVelocity + circleInitialPos };
-        const float dist{ glm::length(circleEndPos - circleInitialPos) };
-        const float step{ dist / numSteps };
+        static constexpr int numSteps{ 3 }; // to do swept intersection
 
-        for(int i{ 1 }; i < numSteps; ++i) {
-            // glm::vec2 currentCirclePos{ circleInitialPos + (i * step) * circleVelocity };
-            glm::vec2 circleCurrentPos{ circleInitialPos + (i * step) * circleVelocity };
+        const glm::vec2 circleEndPos{ (circleVelocity + circleCenter) * deltaTime };
+        const float dist{ glm::length(circleEndPos - circleCenter) };
+        const float step{ dist / static_cast<float>(numSteps) };
+
+        for(int i{ 0 }; i < numSteps; ++i) {
+            glm::vec2 circleCurrentPos{ circleCenter + (static_cast<float>(i) * step) * (glm::normalize(circleVelocity) * deltaTime) };
 
             if(circleAABBCollided(circleCurrentPos,
                                   circleRadius,
                                   aabbSize,
                                   aabbPosition,
                                   out)) {
-                std::clog << "circleInitialPos -> (x, y) (" << circleInitialPos.x << ", " << circleInitialPos.y << ")" << std::endl;
-                std::clog << "circleCurrentPos -> (x, y) (" << circleCurrentPos.x << ", " << circleCurrentPos.y << ")" << std::endl;
-                assert(false && "DETECTED COLLISION THRU' SWEPT!!!");
                 return true;
             }
         }

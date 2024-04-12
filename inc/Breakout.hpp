@@ -85,7 +85,7 @@ namespace Breakout {
         bool loadGameLevelFromFile(const std::filesystem::path& filePath,
                                    const std::size_t levelIndex);
 
-        void updateCollisions();
+        void updateCollisions(const float deltaTime);
 
         void checkLevelStatus(const float deltaTime);
 

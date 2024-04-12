@@ -161,10 +161,12 @@ namespace Breakout {
         } else if(gameState == GameState::LOSE) {
             if(inputManager->isKeyPressed(KeyCodes::KEY_ENTER)) {
                 gameState = GameState::ACTIVE;
+                audioManager->playMusic(AudioID_bgMusic);
             }
         } else if(gameState == GameState::WIN) {
             if(inputManager->isKeyPressed(KeyCodes::KEY_ENTER)) {
                 gameState = GameState::ACTIVE;
+                audioManager->playMusic(AudioID_bgMusic);
             }
         }
     }
@@ -176,7 +178,7 @@ namespace Breakout {
             // clear where all of these should be, need to investigate further
             updatePlayer(deltaTime);
             updateBall(deltaTime);
-            updateCollisions();
+            updateCollisions(deltaTime);
             updatePowerUps(deltaTime);
 
             particleEmitter->updateParticles(deltaTime,
@@ -578,7 +580,7 @@ namespace Breakout {
         return true;
     }
 
-    void Game::updateCollisions()
+    void Game::updateCollisions(const float deltaTime)
     {
         // ugliest function ever
         static constexpr float Strength{ 2.f };
@@ -609,7 +611,8 @@ namespace Breakout {
                                                           ball.velocity,
                                                           bricks[currentLevel].sizes[i],
                                                           bricks[currentLevel].positions[i],
-                                                          collisionData)) {
+                                                          collisionData,
+                                                          deltaTime)) {
                     if(!bricks[currentLevel].isSolid[i]) {
                         audioManager->playChunk(AudioID_bhitNonSolidBrick);
                         bricks[currentLevel].isDestroyed[i] = true;
@@ -660,7 +663,8 @@ namespace Breakout {
                                                       ball.velocity,
                                                       player.size,
                                                       player.position,
-                                                      collisionData)) {
+                                                      collisionData,
+                                                      deltaTime)) {
                 // get the ball out of the brickzzz x2
                 ball.position.x -= collisionData.normal.x * collisionData.depth;
                 ball.position.y -= collisionData.normal.y * collisionData.depth;
@@ -709,10 +713,13 @@ namespace Breakout {
             --player.lives;
 
             if(isGameOver()) {
-                // TODO game over
+                audioManager->stopMusic(AudioID_bgMusic);
+                audioManager->playChunk(AudioID_loseGame);
                 gameState = GameState::LOSE;
                 resetPlayerLives();
                 resetGameLevels();
+            } else {
+                audioManager->playChunk(AudioID_loseRound);
             }
 
             removePowerUpEffects();
@@ -721,6 +728,7 @@ namespace Breakout {
 
             // if player beats level, check if game is finished
             if(isLastLevel()) {
+                audioManager->stopMusic(AudioID_bgMusic);
                 audioManager->playChunk(AudioID_winGame);
                 gameState = GameState::WIN;
                 resetGameLevels();
