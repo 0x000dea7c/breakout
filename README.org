@@ -80,8 +80,3 @@ Win (thanks David):
 Lose (thanks David):
 
 [[./screenshots/Lose.png]]
-
-Gameplay Demo (5:55, 6:41):
-
-https://www.youtube.com/watch?v=prkGlSqFNxk
-
